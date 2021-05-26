@@ -38,8 +38,9 @@ class TemplateController
      * @param int|null  $sharedAge Max age for shared (proxy) caching
      * @param bool|null $private   Whether or not caching should apply for client caches only
      * @param array     $context   The context (arguments) of the template
+     * @param int       $statusCode The HTTP status code to return with the response. Defaults to 200
      */
-    public function templateAction(string $template, int $maxAge = null, int $sharedAge = null, bool $private = null, array $context = []): Response
+    public function templateAction(string $template, int $maxAge = null, int $sharedAge = null, bool $private = null, array $context = [], int $statusCode = 200): Response
     {
         if (null === $this->twig) {
             throw new \LogicException('You can not use the TemplateController if the Twig Bundle is not available.');
@@ -55,6 +56,8 @@ class TemplateController
             $response->setSharedMaxAge($sharedAge);
         }
 
+        $response->setStatusCode($statusCode);
+
         if ($private) {
             $response->setPrivate();
         } elseif (false === $private || (null === $private && (null !== $maxAge || null !== $sharedAge))) {
@@ -64,8 +67,8 @@ class TemplateController
         return $response;
     }
 
-    public function __invoke(string $template, int $maxAge = null, int $sharedAge = null, bool $private = null, array $context = []): Response
+    public function __invoke(string $template, int $maxAge = null, int $sharedAge = null, bool $private = null, array $context = [], int $statusCode = 200): Response
     {
-        return $this->templateAction($template, $maxAge, $sharedAge, $private, $context);
+        return $this->templateAction($template, $maxAge, $sharedAge, $private, $context, $statusCode);
     }
 }
