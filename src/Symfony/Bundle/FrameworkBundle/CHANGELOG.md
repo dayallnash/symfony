@@ -29,6 +29,7 @@ CHANGELOG
  * Deprecate registering workflow services as public
  * Deprecate option `--xliff-version` of the `translation:update` command, use e.g. `--format=xlf20` instead
  * Deprecate option `--output-format` of the `translation:update` command, use e.g. `--format=xlf20` instead
+ * Added support for `statusCode` default parameter when loading a template directly from route using the `Symfony\Bundle\FrameworkBundle\Controller\TemplateController` controller.
 
 5.2.0
 -----
