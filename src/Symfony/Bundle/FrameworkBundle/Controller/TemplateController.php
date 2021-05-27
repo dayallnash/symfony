@@ -46,7 +46,7 @@ class TemplateController
             throw new \LogicException('You can not use the TemplateController if the Twig Bundle is not available.');
         }
 
-        $response = new Response($this->twig->render($template, $context));
+        $response = new Response($this->twig->render($template, $context), $statusCode);
 
         if ($maxAge) {
             $response->setMaxAge($maxAge);
@@ -55,8 +55,6 @@ class TemplateController
         if (null !== $sharedAge) {
             $response->setSharedMaxAge($sharedAge);
         }
-
-        $response->setStatusCode($statusCode);
 
         if ($private) {
             $response->setPrivate();
