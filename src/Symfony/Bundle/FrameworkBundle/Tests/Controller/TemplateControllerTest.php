@@ -71,7 +71,7 @@ class TemplateControllerTest extends TestCase
         $twig = new Environment($loader);
         $controller = new TemplateController($twig);
 
-        $this->assertEquals(201, $controller->templateAction($templateName, null, null, null, [], $statusCode)->getStatusCode());
-        $this->assertEquals(200, $controller->templateAction($templateName)->getStatusCode());
+        $this->assertSame(201, $controller->templateAction($templateName, null, null, null, [], $statusCode)->getStatusCode());
+        $this->assertSame(200, $controller->templateAction($templateName)->getStatusCode());
     }
 }
